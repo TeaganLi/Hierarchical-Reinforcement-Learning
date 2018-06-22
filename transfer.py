@@ -128,9 +128,6 @@ if __name__ == '__main__':
         policy_improvement = PolicyGradient(policy, args.lr_intra)
 
         for episode in range(args.nepisodes):
-            if episode == 1000:
-                env.goal = rng.choice(possible_next_goals)
-                print('************* New goal : ', env.goal)
 
             phi = features(env.reset())
             action = policy.sample(phi)
