@@ -141,6 +141,32 @@ class IntraOptionActionQLearning:
         self.last_option = option
         self.last_action = action
 
+class ValueFunctionLearning:
+    def __init__(self, discount, lr, nfeatures):
+        self.discount = discount
+        self.lr = lr
+        self.weights = np.zeros((nfeatures,))
+
+    def value(self, phi):
+        return np.sum(self.weights[phi], axis=0)
+
+    def start(self, phi):
+        self.last_phi = phi
+
+    def update(self, phi, reward, done):
+        # One-step update target
+        update_target = reward
+        if not done:
+            current_value = self.value(phi)
+            update_target += self.discount*current_value
+
+        # Update values
+        tderror = update_target - self.value(self.last_phi)
+        self.weights[self.last_phi] += self.lr*tderror
+
+        self.last_phi = phi
+        return tderror
+
 class TerminationGradient:
     def __init__(self, terminations, critic, lr):
         self.terminations = terminations
@@ -161,6 +187,16 @@ class IntraOptionGradient:
         actions_pmf = self.option_policies[option].pmf(phi)
         self.option_policies[option].weights[phi, :] -= self.lr*critic*actions_pmf
         self.option_policies[option].weights[phi, action] += self.lr*critic
+
+class PolicyGradient:
+    def __init__(self, policy, lr):
+        self.lr = lr
+        self.policy = policy
+
+    def update(self, phi, action, critic):
+        actions_pmf = self.policy.pmf(phi)
+        self.policy.weights[phi, :] -= self.lr*critic*actions_pmf
+        self.policy.weights[phi, action] += self.lr*critic
 
 class OneStepTermination:
     def sample(self, phi):
@@ -210,33 +246,14 @@ if __name__ == '__main__':
         features = Tabular(env.observation_space.n)
         nfeatures, nactions = len(features), env.action_space.n
 
-        # The intra-option policies are linear-softmax functions
-        option_policies = [SoftmaxPolicy(rng, nfeatures, nactions, args.temperature) for _ in range(args.noptions)]
-        if args.primitive:
-            option_policies.extend([FixedActionPolicies(act, nactions) for act in range(nactions)])
+        # The policies are linear-softmax functions
+        policy = SoftmaxPolicy(rng, nfeatures, nactions, args.temperature)
 
-        # The termination function are linear-sigmoid functions
-        option_terminations = [SigmoidTermination(rng, nfeatures) for _ in range(args.noptions)]
-        if args.primitive:
-            option_terminations.extend([OneStepTermination() for _ in range(nactions)])
+        # Value function as a critic
+        critic = ValueFunctionLearning(args.discount, args.lr_critic, nfeatures)
 
-        # E-greedy policy over options
-        #policy = EgreedyPolicy(rng, nfeatures, args.noptions, args.epsilon)
-        policy = SoftmaxPolicy(rng, nfeatures, args.noptions, args.temperature)
-
-        # Different choices are possible for the critic. Here we learn an
-        # option-value function and use the estimator for the values upon arrival
-        critic = IntraOptionQLearning(args.discount, args.lr_critic, option_terminations, policy.weights)
-
-        # Learn Qomega separately
-        action_weights = np.zeros((nfeatures, args.noptions, nactions))
-        action_critic = IntraOptionActionQLearning(args.discount, args.lr_critic, option_terminations, action_weights, critic)
-
-        # Improvement of the termination functions based on gradients
-        termination_improvement= TerminationGradient(option_terminations, critic, args.lr_term)
-
-        # Intra-option gradient improvement with critic estimator
-        intraoption_improvement = IntraOptionGradient(option_policies, args.lr_intra)
+        # Policy gradient improvement with critic estimator
+        policy_improvement = PolicyGradient(policy, args.lr_intra)
 
         for episode in range(args.nepisodes):
             if episode == 1000:
@@ -244,50 +261,30 @@ if __name__ == '__main__':
                 print('************* New goal : ', env.goal)
 
             phi = features(env.reset())
-            option = policy.sample(phi)
-            action = option_policies[option].sample(phi)
-            critic.start(phi, option)
-            action_critic.start(phi, option, action)
+            action = policy.sample(phi)
+            critic.start(phi)
 
             cumreward = 0.
-            duration = 1
-            option_switches = 0
-            avgduration = 0.
             for step in range(args.nsteps):
                 observation, reward, done, _ = env.step(action)
                 phi = features(observation)
 
-                # Termination might occur upon entering the new state
-                if option_terminations[option].sample(phi):
-                    option = policy.sample(phi)
-                    option_switches += 1
-                    avgduration += (1./option_switches)*(duration - avgduration)
-                    duration = 1
-
-                action = option_policies[option].sample(phi)
-
                 # Critic update
-                update_target = critic.update(phi, option, reward, done)
-                action_critic.update(phi, option, action, reward, done)
+                tderror = critic.update(phi, reward, done)
 
-                if isinstance(option_policies[option], SoftmaxPolicy):
+                if isinstance(policy, SoftmaxPolicy):
                     # Intra-option policy update
-                    critic_feedback = action_critic.value(phi, option, action)
-                    if args.baseline:
-                        critic_feedback -= critic.value(phi, option)
-                    intraoption_improvement.update(phi, option, action, critic_feedback)
+                    critic_feedback = tderror
+                    policy_improvement.update(phi, action, tderror)
 
-                    # Termination update
-                    termination_improvement.update(phi, option)
-
+                action = policy.sample(phi)
                 cumreward += reward
-                duration += 1
                 if done:
                     break
 
             history[run, episode, 0] = step
-            history[run, episode, 1] = avgduration
-            print('Run {} episode {} steps {} cumreward {} avg. duration {} switches {}'.format(run, episode, step, cumreward, avgduration, option_switches))
+            history[run, episode, 1] = 0
+            print('Run {} episode {} steps {} cumreward {}'.format(run, episode, step, cumreward))
         np.save(fname, history)
-        dill.dump({'intra_policies':option_policies, 'policy':policy, 'term':option_terminations}, open('oc-options.pl', 'wb'))
+        dill.dump({'policy':policy}, open('policy-gradient.pl', 'wb'))
         print(fname)
