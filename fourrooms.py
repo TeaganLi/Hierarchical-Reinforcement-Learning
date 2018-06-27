@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 from gym import core, spaces
 from gym.envs.registration import register
 
@@ -54,6 +55,11 @@ wwwwwwwwwwwww
         self.currentcell = self.tocell[state]
         return state
 
+    def set_block(self, block):
+        block_indexes = [(3, 6), (10, 6), (6, 2)]
+        self.occupancy_with_block = copy.deepcopy(self.occupancy)
+        self.occupancy_with_block[block_indexes[block]] = 1
+
     def step(self, action):
         """
         The agent can perform one of four actions,
@@ -62,13 +68,12 @@ wwwwwwwwwwwww
         the agent moves instead in one of the other three directions, each with 1/9 probability. In
         either case, if the movement would take the agent into a wall then the agent remains in the
         same cell.
-
         We consider a case in which rewards are zero on all state transitions.
         """
         nextcell = tuple(self.currentcell + self.directions[action])
-        if not self.occupancy[nextcell]:
+        if not self.occupancy_with_block[nextcell]:
             self.currentcell = nextcell
-            if self.rng.uniform() < 1/3.:
+            if self.rng.uniform() < 1 / 3.:
                 empty_cells = self.empty_around(self.currentcell)
                 self.currentcell = empty_cells[self.rng.randint(len(empty_cells))]
 
@@ -76,12 +81,12 @@ wwwwwwwwwwwww
         done = state == self.goal
         return state, float(done), done, None
 
-register(
-    id='Fourrooms-v0',
-    entry_point='fourrooms:Fourrooms',
-    timestep_limit=20000,
-    reward_threshold=1,
-)
+# register(
+#     id='Fourrooms-v0',
+#     entry_point='fourrooms:Fourrooms',
+#     timestep_limit=20000,
+#     reward_threshold=1,
+# )
 
 if __name__ == '__main__':
     testbed = Fourrooms()
