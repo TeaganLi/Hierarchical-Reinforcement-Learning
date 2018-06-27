@@ -18,10 +18,10 @@ class Tabular:
         return self.nstates
 
 class EgreedyPolicy:
-    def __init__(self, rng, nfeatures, nactions, epsilon):
+    def __init__(self, rng, nfeatures, nblocks, nactions, epsilon):
         self.rng = rng
         self.epsilon = epsilon
-        self.weights = np.zeros((nfeatures, nactions))
+        self.weights = np.zeros((nfeatures, nblocks, nactions))
 
     def value(self, phi, action=None):
         if action is None:
@@ -34,15 +34,15 @@ class EgreedyPolicy:
         return int(np.argmax(self.value(phi)))
 
 class SoftmaxPolicy:
-    def __init__(self, rng, nfeatures, nactions, temp=1.):
+    def __init__(self, rng, nfeatures, nblocks, nactions, temp=1.):
         self.rng = rng
-        self.weights = np.zeros((nfeatures, nactions))
+        self.weights = np.zeros((nfeatures, nblocks, nactions))
         self.temp = temp
 
-    def value(self, phi, action=None):
+    def value(self, phi, the, action=None):
         if action is None:
-            return np.sum(self.weights[phi, :], axis=0)
-        return np.sum(self.weights[phi, action], axis=0)
+            return np.sum(self.weights[phi, the, :], axis=0)
+        return np.sum(self.weights[phi, the, action], axis=0)
 
     def pmf(self, phi):
         v = self.value(phi)/self.temp

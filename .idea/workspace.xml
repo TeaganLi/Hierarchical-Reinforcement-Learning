@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f99a031c-3922-4930-90fb-55e18e06a860" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/policy-gradient.pl" beforeDir="false" afterPath="$PROJECT_DIR$/policy-gradient.pl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transfer.py" beforeDir="false" afterPath="$PROJECT_DIR$/transfer.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,7 +16,7 @@
       <file leaf-file-name="readrecords.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Desktop/Untitled Folder/readrecords.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
+            <state relative-caret-position="456">
               <caret line="25" column="10" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="36" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -26,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="readrecords.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="readrecords.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readrecords.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="15" column="10" lean-forward="true" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+              <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -38,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transfer.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="transfer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/transfer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="876">
-              <caret line="150" column="24" selection-start-line="150" selection-start-column="24" selection-end-line="150" selection-end-column="24" />
+            <state relative-caret-position="741">
+              <caret line="48" column="35" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="35" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -65,6 +64,7 @@
       <find>update_target</find>
       <find>advantage</find>
       <find>epsilon</find>
+      <find>EgreedyPolicy</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -74,17 +74,17 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/fourrooms.py" />
-        <option value="$PROJECT_DIR$/transfer.py" />
         <option value="$PROJECT_DIR$/readrecords.py" />
         <option value="$USER_HOME$/Desktop/Untitled Folder/readrecords.py" />
+        <option value="$PROJECT_DIR$/transfer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2276" />
+    <option name="x" value="1731" />
     <option name="y" value="-4" />
     <option name="width" value="983" />
-    <option name="height" value="1060" />
+    <option name="height" value="1084" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -228,32 +228,22 @@
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3296845" />
+      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3296845" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.32839665" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20798455" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32904056" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3992273" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.34837356" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="7" visible="true" weight="0.3296845" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39979014" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39979014" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.32984293" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -545,9 +535,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="208" selection-start-line="208" selection-end-line="208" />
-          <folding>
-            <element signature="e#63#73#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -625,13 +612,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/opt/tensorflow3/lib/python3.5/site-packages/scipy/misc/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="887">
-          <caret line="76" selection-start-line="76" selection-end-line="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/-1240256844/scipy/special/_ufuncs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
@@ -646,19 +626,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/transfer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="876">
-          <caret line="150" column="24" selection-start-line="150" selection-start-column="24" selection-end-line="150" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/Untitled Folder/readrecords.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
+        <state relative-caret-position="456">
           <caret line="25" column="10" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="36" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -669,9 +639,26 @@
     <entry file="file://$PROJECT_DIR$/readrecords.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="15" column="10" lean-forward="true" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/opt/tensorflow3/lib/python3.5/site-packages/scipy/misc/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="887">
+          <caret line="76" selection-start-line="76" selection-end-line="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transfer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="741">
+          <caret line="48" column="35" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
