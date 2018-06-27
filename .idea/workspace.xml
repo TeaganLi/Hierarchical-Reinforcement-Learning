@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f99a031c-3922-4930-90fb-55e18e06a860" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/fourrooms.py" beforeDir="false" afterPath="$PROJECT_DIR$/fourrooms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/oc-options.pl" beforeDir="false" afterPath="$PROJECT_DIR$/oc-options.pl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/optioncritic-fourrooms-baseline_True-discount_0.99-epsilon_0.01-lr_critic_0.5-lr_intra_0.25-lr_term_0.25-nepisodes_1000-noptions_4-nruns_100-nsteps_1000-primitive_False-temperature_0.01.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/optioncritic-fourrooms-baseline_True-discount_0.99-epsilon_0.01-lr_critic_0.5-lr_intra_0.25-lr_term_0.25-nepisodes_1000-noptions_4-nruns_100-nsteps_1000-primitive_False-temperature_0.5.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/optioncritic-fourrooms-baseline_True-discount_0.99-epsilon_0.01-lr_critic_0.5-lr_intra_0.25-lr_term_0.25-nepisodes_250-noptions_4-nruns_100-nsteps_1000-primitive_False-temperature_0.01.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/optioncritic-fourrooms-baseline_True-discount_0.99-epsilon_0.01-lr_critic_0.5-lr_intra_0.25-lr_term_0.25-nepisodes_250-noptions_4-nruns_100-nsteps_1000-primitive_False-temperature_0.5.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/readrecords.py" beforeDir="false" afterPath="$PROJECT_DIR$/readrecords.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_0.01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp_0.5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/optioncritic-dynamic-baseline_True-discount_0.99-epsilon_0.01-lr_critic_0.5-lr_intra_0.25-lr_term_100.0-nepisodes_1000-noptions_4-nruns_100-nsteps_1000-primitive_False-temperature_0.01.npy" beforeDir="false" afterPath="$PROJECT_DIR$/optioncritic-dynamic-baseline_True-discount_0.99-epsilon_0.01-lr_critic_0.5-lr_intra_0.25-lr_term_100.0-nepisodes_1000-noptions_4-nruns_100-nsteps_1000-primitive_False-temperature_0.01.npy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/transfer.py" beforeDir="false" afterPath="$PROJECT_DIR$/transfer.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,14 +15,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5382096">
+    <splitter split-orientation="horizontal" split-proportion="0.65665936">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="readrecords.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/readrecords.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="57">
-                  <caret line="3" column="200" selection-start-line="3" selection-start-column="200" selection-end-line="3" selection-end-column="200" />
+                <state relative-caret-position="266">
+                  <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -39,11 +33,8 @@
           <file leaf-file-name="fourrooms.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/fourrooms.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="152">
+                <state relative-caret-position="171">
                   <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -51,8 +42,8 @@
           <file leaf-file-name="transfer.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/transfer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="608">
-                  <caret line="189" selection-start-line="189" selection-end-line="189" />
+                <state relative-caret-position="715">
+                  <caret line="139" column="60" selection-start-line="139" selection-start-column="60" selection-end-line="139" selection-end-column="60" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                   </folding>
@@ -67,8 +58,8 @@
           <file leaf-file-name="transfer.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/transfer.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-123">
-                  <caret line="212" column="25" selection-start-line="212" selection-start-column="16" selection-end-line="212" selection-end-column="25" />
+                <state relative-caret-position="-237">
+                  <caret line="212" column="25" selection-start-line="212" selection-start-column="25" selection-end-line="212" selection-end-column="25" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                   </folding>
@@ -98,9 +89,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/transfer.py" />
         <option value="$PROJECT_DIR$/fourrooms.py" />
         <option value="$PROJECT_DIR$/readrecords.py" />
+        <option value="$PROJECT_DIR$/transfer.py" />
       </list>
     </option>
   </component>
@@ -558,9 +549,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
           <caret line="25" column="10" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -592,9 +580,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -668,18 +653,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fourrooms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
+        <state relative-caret-position="171">
           <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/transfer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="189" selection-start-line="189" selection-end-line="189" />
+        <state relative-caret-position="715">
+          <caret line="139" column="60" selection-start-line="139" selection-start-column="60" selection-end-line="139" selection-end-column="60" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -688,8 +670,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/readrecords.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="200" selection-start-line="3" selection-start-column="200" selection-end-line="3" selection-end-column="200" />
+        <state relative-caret-position="266">
+          <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

@@ -48,7 +48,7 @@ class SigmoidTermination:
 
     def grad(self, phi, block):
         terminate = self.pmf(phi, block)
-        return terminate*(1. - terminate), phi
+        return terminate*(1. - terminate), phi, block
 
 class IntraOptionQLearning:
     def __init__(self, discount, lr, terminations, weights):
@@ -136,8 +136,8 @@ class TerminationGradient:
         self.lr = lr
 
     def update(self, phi, block, option):
-        magnitude, direction = self.terminations[option].grad(phi, block)
-        self.terminations[option].weights[direction] -= \
+        magnitude, dir_phi, dir_block = self.terminations[option].grad(phi, block)
+        self.terminations[option].weights[dir_phi, dir_block] -= \
                 self.lr*magnitude*(self.critic.advantage(phi, block, option))
 
 class IntraOptionGradient:
