@@ -39,42 +39,44 @@ class SoftmaxPolicy:
         self.weights = np.zeros((nfeatures, nblocks, nactions))
         self.temp = temp
 
-    def value(self, phi, the, action=None):
+    def value(self, phi, block, action=None):
         if action is None:
-            return np.sum(self.weights[phi, the, :], axis=0)
-        return np.sum(self.weights[phi, the, action], axis=0)
+            return np.sum(self.weights[phi, block, :], axis=0)
+        return np.sum(self.weights[phi, block, action], axis=0)
 
-    def pmf(self, phi):
-        v = self.value(phi)/self.temp
+    def pmf(self, phi, block):
+        v = self.value(phi, block)/self.temp
         return np.exp(v - logsumexp(v))
 
-    def sample(self, phi):
-        return int(self.rng.choice(self.weights.shape[1], p=self.pmf(phi)))
+    def sample(self, phi, block):
+        return int(self.rng.choice(self.weights.shape[2], p=self.pmf(phi, block)))
 
 class ValueFunctionLearning:
-    def __init__(self, discount, lr, nfeatures):
+    def __init__(self, discount, lr, nfeatures, nblocks):
         self.discount = discount
         self.lr = lr
-        self.weights = np.zeros((nfeatures,))
+        self.weights = np.zeros((nfeatures, nblocks))
 
-    def value(self, phi):
-        return np.sum(self.weights[phi], axis=0)
+    def value(self, phi, block):
+        return np.sum(self.weights[phi, block], axis=0)
 
-    def start(self, phi):
+    def start(self, phi, block):
         self.last_phi = phi
+        self.last_block = block
 
-    def update(self, phi, reward, done):
+    def update(self, phi, block, reward, done):
         # One-step update target
         update_target = reward
         if not done:
-            current_value = self.value(phi)
+            current_value = self.value(phi, block)
             update_target += self.discount*current_value
 
         # Update values
-        tderror = update_target - self.value(self.last_phi)
-        self.weights[self.last_phi] += self.lr*tderror
+        tderror = update_target - self.value(self.last_phi, self.last_block)
+        self.weights[self.last_phi, self.last_block] += self.lr*tderror
 
         self.last_phi = phi
+        self.last_block = block
         return tderror
 
 class PolicyGradient:
@@ -82,10 +84,10 @@ class PolicyGradient:
         self.lr = lr
         self.policy = policy
 
-    def update(self, phi, action, critic):
-        actions_pmf = self.policy.pmf(phi)
-        self.policy.weights[phi, :] -= self.lr*critic*actions_pmf
-        self.policy.weights[phi, action] += self.lr*critic
+    def update(self, phi, block, action, critic):
+        actions_pmf = self.policy.pmf(phi, block)
+        self.policy.weights[phi, block, :] -= self.lr*critic*actions_pmf
+        self.policy.weights[phi, block, action] += self.lr*critic
 
 
 if __name__ == '__main__':
@@ -106,10 +108,11 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     rng = np.random.RandomState(1234)
-    env = gym.make('Fourrooms-v0')
+    # env = gym.make('Fourrooms-v0')
+    env = Fourrooms()
 
     fname = '-'.join(['{}_{}'.format(param, val) for param, val in sorted(vars(args).items())])
-    fname = 'optioncritic-fourrooms-' + fname + '.npy'
+    fname = 'policy-gradient-dynamic-' + fname + '.npy'
 
     possible_next_goals = [68, 69, 70, 71, 72, 78, 79, 80, 81, 82, 88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 103]
 
@@ -117,21 +120,24 @@ if __name__ == '__main__':
     for run in range(args.nruns):
         features = Tabular(env.observation_space.n)
         nfeatures, nactions = len(features), env.action_space.n
+        nblocks = 3
 
         # The policies are linear-softmax functions
-        policy = SoftmaxPolicy(rng, nfeatures, nactions, args.temperature)
+        policy = SoftmaxPolicy(rng, nfeatures,nblocks, nactions, args.temperature)
 
         # Value function as a critic
-        critic = ValueFunctionLearning(args.discount, args.lr_critic, nfeatures)
+        critic = ValueFunctionLearning(args.discount, args.lr_critic, nfeatures, nblocks)
 
         # Policy gradient improvement with critic estimator
         policy_improvement = PolicyGradient(policy, args.lr_intra)
 
         for episode in range(args.nepisodes):
-
             phi = features(env.reset())
-            action = policy.sample(phi)
-            critic.start(phi)
+            block = rng.randint(nblocks)
+            block_time = rng.randint(10)
+            action = policy.sample(phi, block)
+            critic.start(phi, block)
+            env.set_block(block)
 
             cumreward = 0.
             for step in range(args.nsteps):
@@ -139,15 +145,20 @@ if __name__ == '__main__':
                 phi = features(observation)
 
                 # Critic update
-                tderror = critic.update(phi, reward, done)
+                tderror = critic.update(phi, block, reward, done)
 
                 if isinstance(policy, SoftmaxPolicy):
                     # Intra-option policy update
                     critic_feedback = tderror
-                    policy_improvement.update(phi, action, tderror)
+                    policy_improvement.update(phi, block, action, tderror)
 
-                action = policy.sample(phi)
+                action = policy.sample(phi, block)
                 cumreward += reward
+                block_time -= 1
+                if block_time < 0:
+                    block = rng.randint(nblocks)
+                    block_time = rng.randint(10)
+                    env.set_block(block)
                 if done:
                     break
 
